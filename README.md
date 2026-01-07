@@ -1,0 +1,154 @@
+# 🧪 CSV 2026 Challenge Baseline — Quick Start
+
+This repository provides the official baseline implementation for the **CSV Challenge**, including:
+- Semi-supervised two-view training (UniMatch framework)
+- Model inference and submission packaging
+- Data splitting utilities and evaluation support
+
+The baseline is designed to be **reproducible, extensible, and competition-ready**.
+
+---
+
+## 📁 1. Prepare Data
+
+Place the downloaded training archive (provided by organizers) under the repository root and unzip it so the directory structure becomes:
+
+```text
+CSV2026_Baseline/
+└─ data/
+   └─ train/
+      ├─ images/        # .h5 image files (long_img & trans_img)
+      └─ labels/        # _label.h5 files (long_mask, trans_mask, cls)
+```
+
+
+## 🧰 2. Create Python Environment
+ 
+ We recommend **Python 3.10** and **CUDA 12.1 (cu121)**.
+ Minimum recommended PyTorch version: **>= 2.4.1**.
+
+```bash
+conda create -n csv-baseline python=3.10 -y
+conda activate csv-baseline
+
+pip install --index-url https://download.pytorch.org/whl/cu121   torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1
+
+pip install -r requirements.txt
+```
+
+> ⚠️ **Important:**  
+> If your CUDA version differs, install PyTorch following the official instructions first, then run:
+> ```bash
+> pip install -r requirements.txt --no-deps
+> ```
+
+
+## 🧩 3. Create Local Train / Validation Split
+
+Generate a balanced validation set and JSON splits:
+
+```bash
+python split_train_valid_fold.py --root ./data --seed 2026 --val_size 50
+```
+
+This creates:
+- `train_labeled.json`
+- `train_unlabeled.json`
+- `valid.json`
+
+under the `data/` directory.
+
+
+## 🚀 4. Train
+
+### Recommended (High Performance — Echocare)
+
+```bash
+python train.py \
+  --train-labeled-json ./data/train_labeled.json \
+  --train-unlabeled-json ./data/train_unlabeled.json \
+  --valid-labeled-json ./data/valid.json \
+  --model Echocare \
+  --echo_care_ckpt ./pretrain/echocare_encoder.pth \
+  --save_path ./checkpoints \
+  --gpu 0 \
+  --train_epochs 100 \
+  --batch_size 4
+```
+
+### Lightweight Option (Lower Memory — UNet)
+
+```bash
+python train.py --model UNet --gpu 0
+```
+
+Training checkpoints:
+```text
+./checkpoints/best.pth
+./checkpoints/latest.pth
+```
+
+
+## 🔍 5. Inference
+
+Run inference on released validation images:
+
+```bash
+python inference.py \
+  --val-dir ./data/val \
+  --checkpoint ./checkpoints/best.pth \
+  --encoder-pth ./pretrain/echocare_encoder.pth \
+  --resize-target 256 \
+  --gpu 0
+```
+
+Predictions are saved to:
+
+```text
+./data/val/preds/{case_name}_pred.h5
+```
+
+Each file contains:
+- `long_mask`
+- `trans_mask`
+- `cls`
+
+
+## 📦 6. Package Predictions for Submission
+
+```bash
+cd data/val
+tar -czvf preds.tar.gz preds/
+```
+
+
+## 🧠 7. Notes & Tips
+
+- 🏆 Use `--model Echocare` for the best performance.
+- 🪶 Use `--model UNet` for limited GPU memory.
+- 🧪 To regenerate a minimal dependency list:
+  ```bash
+  pip install pipreqs
+  pipreqs /absolute/path/to/baseline_release --force
+  ```
+
+
+## 📚 Baseline Method Acknowledgement
+
+This baseline is developed based on and inspired by the following works:
+
+> **[1]** Zhang H, Wu Y, Zhao M, et al.  
+> *A Fully Open and Generalizable Foundation Model for Ultrasound Clinical Applications.*  
+> arXiv preprint arXiv:2509.11752, 2025.
+
+> **[2]** Yang L, Qi L, Feng L, et al.  
+> *Revisiting Weak-to-Strong Consistency in Semi-Supervised Semantic Segmentation.*  
+> Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023.
+
+These studies provide the theoretical foundation and training paradigm upon which this baseline is constructed.
+
+---
+
+## 🏁 Good Luck & Happy Research!
+
+We look forward to your participation in the CSV 2026 Challenge 🚀

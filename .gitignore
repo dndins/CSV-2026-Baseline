@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# Conda
+.env
+.venv
+
+# Logs & checkpoints
+logs/
+*.log
+*.pth
+*.ckpt
+
+# Data
+data/
+dataset/
+
+# OS
+.DS_Store
+
+
