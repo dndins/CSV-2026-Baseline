@@ -132,15 +132,23 @@ tar -czvf preds.tar.gz preds/
 
 This baseline is developed based on and inspired by the following works:
 
-> **[1]** Zhang H, Wu Y, Zhao M, et al.  
-> *A Fully Open and Generalizable Foundation Model for Ultrasound Clinical Applications.*  
-> arXiv preprint arXiv:2509.11752, 2025.
-
-> **[2]** Yang L, Qi L, Feng L, et al.  
+> **[1]** Yang L, Qi L, Feng L, et al.  
 > *Revisiting Weak-to-Strong Consistency in Semi-Supervised Semantic Segmentation.*  
 > Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2023.
 
-These studies provide the theoretical foundation and training paradigm upon which this baseline is constructed.
+> **[2]** Zhang H, Wu Y, Zhao M, et al.  
+> *A Fully Open and Generalizable Foundation Model for Ultrasound Clinical Applications.*  
+> arXiv preprint arXiv:2509.11752, 2025.
+
+> **[3]** Hatamizadeh A, Nath V, Tang Y, et al.  
+> *Swin unetr: Swin transformers for semantic segmentation of brain tumors in mri images.*  
+> International MICCAI brainlesion workshop. Cham: Springer International Publishing, 2021: 272-284.
+
+> **[4]** Hu E J, Shen Y, Wallis P, et al.  
+> *Lora: Low-rank adaptation of large language models.*  
+> ICLR, 2022, 1(2): 3.
+
+This baseline is built based on the methods in [1], applying a semi-supervised segmentation + classification approach to our task. Echocare[2] is a self-supervised ultrasound foundation model trained on the Swin UNETR[3] architecture. We further fine-tune the encoder of Swin UNETR with LoRA [4] to adapt it to the downstream task.
 
 ---
 
