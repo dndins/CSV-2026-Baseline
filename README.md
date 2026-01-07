@@ -121,11 +121,7 @@ Each file contains:
 
 ## 📦 6. Package Predictions for Submission
 
-<<<<<<< HEAD
 **⚠️ ATTENTION!**
-=======
-ATTENTION!
->>>>>>> 5900cdd60798a3c93defe739f03f012a642ca832
 
 This submission is for the validation phase. During this phase, the validation set images will be provided. 
 Participants are required to save their valid results in H5 format (the same format as the training set labels) 
