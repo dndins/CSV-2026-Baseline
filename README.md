@@ -1,6 +1,6 @@
 # 🩺 CSV 2026 Challenge Baseline
 
-[![CSV 2026 Challenge Site](https://img.shields.io/badge/Official-FETUS%20Challenge-red?style=for-the-badge)](http://www.csv-isbi.net/)
+[![CSV 2026 Challenge Site](https://img.shields.io/badge/Official-CSV%20Challenge-red?style=for-the-badge)](http://www.csv-isbi.net/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange?style=for-the-badge&logo=pytorch)](https://pytorch.org/)
 [![CUDA](https://img.shields.io/badge/CUDA-12.1-green?style=for-the-badge&logo=nvidia)](https://developer.nvidia.com/cuda-toolkit)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](./LICENSE)
