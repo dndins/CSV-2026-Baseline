@@ -68,8 +68,6 @@ under the `data/` directory.
 
 ### Recommended (High Performance — Echocare)
 
-You can acquire the Echocare weight from: https://cashkisi-my.sharepoint.com/personal/cares-copilot_cair-cas_org_hk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcares%2Dcopilot%5Fcair%2Dcas%5Forg%5Fhk%2FDocuments%2Fpublic%5Fshares%2Fechocare%5Fencoder%2Epth&parent=%2Fpersonal%2Fcares%2Dcopilot%5Fcair%2Dcas%5Forg%5Fhk%2FDocuments%2Fpublic%5Fshares&ga=1
-
 ```bash
 python train.py \
   --train-labeled-json ./data/train_labeled.json \
